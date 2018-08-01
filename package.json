@@ -1,0 +1,23 @@
+{
+  "name": "niffler",
+  "version": "1.0.0",
+  "description": "Multi account expense tracker in electronjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tacoder/niffler.git"
+  },
+  "author": "tacoder",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/tacoder/niffler/issues"
+  },
+  "homepage": "https://github.com/tacoder/niffler#readme",
+  "dependencies": {
+    "electron": "^2.0.5"
+  }
+}
