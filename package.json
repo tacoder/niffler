@@ -2,7 +2,7 @@
   "name": "niffler",
   "version": "1.0.0",
   "description": "Multi account expense tracker in electronjs",
-  "main": "index.js",
+  "main": "main/main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/tacoder/niffler#readme",
   "dependencies": {
-    "electron": "^2.0.5"
+    "electron": "^2.0.5",
+    "electron-debug": "^2.0.0",
+    "electron-is-dev": "^1.0.1",
+    "mongoose": "^5.3.13"
   }
 }
