@@ -1,13 +1,17 @@
 var init = require('./js/init.js')
- var url = "mongodb://localyhost:27017/mydb";
 
-init.initialize(url, function(err) {
-	if(err){
-		alert("Error occurred while initialize");
-		exit(0);
-	}
-	alert("initlisation succ")
-});
+
+// init.initialize(function(err) {
+// 	if(err){
+// 		// alert("Error occurred while initialize - " + err);
+// 		exit(0);
+// 	}
+// 	// alert("initlisation succ");
+// });
+
+function loadUserNames() {
+	return ["abhinav","abhinav2","abhinav3"];
+}
 
 // alert("successs");
 // console.log("succ intecjt code");

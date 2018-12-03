@@ -1,10 +1,21 @@
-var mongoose = require('mongoose')
+var mongo_helper = require('./mongo_helper');
+var Q = require('q')
 
 module.exports = {
-	initialize : function(uri, cb) {
-		mongoose.connect(uri, function(error) {
-			if(error) cb(error);
-  			cb()
+	initialize : function(cb){
+		Q.all(mongo_helper.initialize)
+		.then(function() {
+			cb();
 		})
+		.catch(function(err){
+			cb(err);
+		});
+		// mongo_helper.initialize();
 	}
+	// function(uri, cb) {
+	// 	mongoose.connect(uri, function(error) {
+	// 		if(error) cb(error);
+ //  			cb()
+	// 	})
+	// }
 }

@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/tacoder/niffler#readme",
   "dependencies": {
+    "Q": "^1.0.0",
     "electron": "^2.0.5",
     "electron-debug": "^2.0.0",
     "electron-is-dev": "^1.0.1",
-    "mongoose": "^5.3.13"
+    "mongoose": "^5.3.13",
+    "q": "^1.5.1"
   }
 }
