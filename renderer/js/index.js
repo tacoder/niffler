@@ -1,17 +1,36 @@
 var init = require('./js/init.js')
+console.log("started");
+alert("just started.");
 
-
-// init.initialize(function(err) {
-// 	if(err){
-// 		// alert("Error occurred while initialize - " + err);
-// 		exit(0);
-// 	}
-// 	// alert("initlisation succ");
-// });
-
-function loadUserNames() {
+function getUserNames() {
 	return ["abhinav","abhinav2","abhinav3"];
 }
+
+function start(){
+	var loginBox = new Vue({
+		el:"#login",
+		data: {
+			loading:true,
+			message:"Loading stuff right now!"
+		}
+	});
+
+	init.initialize(function(err) {
+		loginBox.loading = false;
+		if(err){
+			loginBox.message = "Error during initialization :(";
+			console.log("Error occurred while initialize - " + err);
+		} else {
+			loginBox.message = ""
+		}
+	});
+}
+
+function startDelayed(){
+	setTimeout(start,5000);
+}
+
+window.addEventListener("load", startDelayed);
 
 // alert("successs");
 // console.log("succ intecjt code");

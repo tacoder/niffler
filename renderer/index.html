@@ -3,18 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <title>Niffler</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <link rel="stylesheet" href="style/index.css" >
   </head>
   <body>
-    <h1>Niffler</h1>
+    <span class="shiny">
+      <span class="inner-shiny">niffler</span>
+    
+  </span>
     <!-- All of the Node.js APIs are available in this renderer process. -->
     <!-- We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>. -->
 
-    <h4>Welcome to Niffler!</h4>
     <div id="login">
       <p>Who are you? a bitch ?</p>
+      <div v-if="loading">
     <img src="images/Loading_icon.gif" title="loading">
+  </div>
+    <p>{{message}}</p>
     </div>
     <script src="js/index.js"></script>
   </body>
