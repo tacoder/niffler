@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="style/index.css" >
   </head>
   <body>
-    <span class="shiny">
+    <div id="niffler-logo">
+        <!-- <button v-on:click="show = !show">
+    Toggle
+  </button> -->
+      <transition name="fade">
+    <span v-if="show" class="shiny" style="{display:none;}">
       <span class="inner-shiny">niffler</span>
     
   </span>
+</transition>
+</div>
     <!-- All of the Node.js APIs are available in this renderer process. -->
     <!-- We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
@@ -19,9 +26,9 @@
     <div id="login">
       <p>Who are you? a bitch ?</p>
       <div v-if="loading">
-    <img src="images/Loading_icon.gif" title="loading">
+        <div class="loader">Loading...</div>
   </div>
-    <p>{{message}}</p>
+    <!-- <p>{{message}}</p> -->
     </div>
     <script src="js/index.js"></script>
   </body>

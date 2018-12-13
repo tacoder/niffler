@@ -1,33 +1,48 @@
 var init = require('./js/init.js')
-console.log("started");
-alert("just started.");
+
+var loginBox,nifflerLogo;
 
 function getUserNames() {
 	return ["abhinav","abhinav2","abhinav3"];
 }
 
 function start(){
-	var loginBox = new Vue({
+	loginBox = new Vue({
 		el:"#login",
 		data: {
 			loading:true,
-			message:"Loading stuff right now!"
 		}
 	});
+	nifflerLogo  = new Vue({
+	  el: '#niffler-logo',
+	  data: {
+	    show: false
+	  }
+	});
 
+	nifflerLogo.show=true;
+	setTimeout(initialize, 5000);
+}
+
+function initialize() {
 	init.initialize(function(err) {
 		loginBox.loading = false;
 		if(err){
-			loginBox.message = "Error during initialization :(";
 			console.log("Error occurred while initialize - " + err);
 		} else {
-			loginBox.message = ""
+			// slideLogoUp();
+			document.getElementsByClassName("shiny")[0].style.paddingTop="50px"
+			loadUserNamesAndPopulateComponent();
 		}
 	});
 }
 
+function loadUserNamesAndPopulateComponent(){
+	// transition title to a bit above.
+}
+
 function startDelayed(){
-	setTimeout(start,5000);
+	setTimeout(start,0);
 }
 
 window.addEventListener("load", startDelayed);

@@ -3,8 +3,17 @@ body
   background: #111;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+  transition-duration: 2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .shiny
 {
+	transition: padding-top 2s;
   color: #F5C21B;
   background: -webkit-gradient(linear, left top, left bottom, from(#F5C21B), to(#D17000));
   -webkit-background-clip: text;
@@ -14,6 +23,8 @@ body
   font-size: 10em;
   font-weight: 900;
   position: relative;
+  padding-left: 166px;
+  padding-top:166px;
 }
 
 .shiny::before
@@ -86,3 +97,50 @@ body
   60%  { opacity: 0; }
   100% { opacity: 0; }
 }
+
+
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+.loader {
+  margin: 30px auto;
+  font-size: 3px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(209,112,0,0.2);
+  border-right: 1.1em solid rgba(209,112,0,0.2);
+  border-bottom: 1.1em solid rgba(209,112,0,0.2);
+  border-left: 1.1em solid #ff8100;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+
