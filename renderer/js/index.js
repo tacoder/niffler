@@ -11,6 +11,8 @@ function start(){
 		el:"#login",
 		data: {
 			loading:true,
+			usernames:[],
+			message:""
 		}
 	});
 	nifflerLogo  = new Vue({
@@ -21,24 +23,35 @@ function start(){
 	});
 
 	nifflerLogo.show=true;
-	setTimeout(initialize, 5000);
+	// setTimeout(function(){nifflerLogo.show=true},3000);
+	setTimeout(initialize, 500);
 }
 
 function initialize() {
 	init.initialize(function(err) {
 		loginBox.loading = false;
 		if(err){
+			loginBox.message = "Something went wrong :(";
 			console.log("Error occurred while initialize - " + err);
 		} else {
 			// slideLogoUp();
-			document.getElementsByClassName("shiny")[0].style.paddingTop="50px"
+			loginBox.message=greetingMessage();
+			document.getElementById("niffler-logo").style.paddingTop="50px"
 			loadUserNamesAndPopulateComponent();
 		}
 	});
 }
 
+function greetingMessage() {
+	var items=  ["Identify yourself!", "Who ARE you?", "Please select a username", "Papers Please >.>"];
+	return items[Math.floor(Math.random()*items.length)]
+}
+
 function loadUserNamesAndPopulateComponent(){
 	// transition title to a bit above.
+	loginBox.usernames = getUserNames();
+	if(loginBox.usernames.length == 0 )
+		loginBox.message = "Add new user"
 }
 
 function startDelayed(){

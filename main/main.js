@@ -10,11 +10,22 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600, title:'niffler'})
+  mainWindow = new BrowserWindow({backgroundColor: '#111', 
+    titleBarStyle: 'hiddenInset', 
+    width: 800, 
+    height: 600, 
+    minWidth: 800, 
+    minHeight: 600, 
+    title:'Niffler', 
+    fullscreenable:false,
+    maximizable:false
+  })
 
   // and load the index.html of the app.
   mainWindow.loadFile(VIEW_BASE_DIR + 'index.html')
-
+// mainWindow.once('ready-to-show', () => {
+//   mainWindow.show()
+// })
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 

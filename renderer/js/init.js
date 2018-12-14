@@ -3,13 +3,18 @@ var Q = require('q')
 
 module.exports = {
 	initialize : function(cb){
-		Q.all(mongo_helper.initialize)
-		.then(function() {
-			cb();
-		})
-		.catch(function(err){
-			cb(err);
+		mongo_helper.initialize(function(error) {
+			if(error) cb(error);
+				else cb()
 		});
+
+		// Q.all(mongo_helper.initialize)
+		// .then(function() {
+		// 	cb();
+		// })
+		// .catch(function(err){
+		// 	cb(err);
+		// });
 		// mongo_helper.initialize();
 	}
 	// function(uri, cb) {

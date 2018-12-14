@@ -1,6 +1,7 @@
 body
 {
   background: #111;
+  overflow:hidden;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -10,10 +11,16 @@ body
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+#niffler-logo{
+	transition: padding-top 2s;
+	  padding-top:166px;
+	      -webkit-app-region: drag;
+	      -webkit-user-select: none;
 
+}
 .shiny
 {
-	transition: padding-top 2s;
+
   color: #F5C21B;
   background: -webkit-gradient(linear, left top, left bottom, from(#F5C21B), to(#D17000));
   -webkit-background-clip: text;
@@ -24,7 +31,6 @@ body
   font-weight: 900;
   position: relative;
   padding-left: 166px;
-  padding-top:166px;
 }
 
 .shiny::before
@@ -142,5 +148,32 @@ body
   }
 }
 
+#login {
+	color:#dca900;
+	font-family: Helvetica;
+}
 
+#login p{
+	text-align: center;
+	font-size: x-large;
+	    font-weight: lighter;
+}
+
+#login ul{
+list-style: none;
+    padding-left: 0;
+        font-size: x-large;
+    font-weight: unset;
+        text-align: center;
+}
+
+#login li {
+	    margin: 10px;
+
+}
+#login li:hover {
+		font-weight: bold;
+		cursor: pointer;
+		text-shadow: 0 0 3px #967300
+}
 

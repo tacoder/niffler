@@ -1,5 +1,5 @@
 var mongoConfig = {
-	url : "mongodb://localhosst:27017/mydb"
+	url : "mongodb://localhost:27017/mydb"
 }
 
 module.exports = {

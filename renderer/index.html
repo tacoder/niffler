@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <title>Niffler</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <link rel="stylesheet" href="style/index.css" >
+    <link rel="stylesheet" type="text/css" href="style/index.css" >
   </head>
   <body>
-    <div id="niffler-logo">
+    <div id="niffler-logo" >
         <!-- <button v-on:click="show = !show">
     Toggle
   </button> -->
       <transition name="fade">
-    <span v-if="show" class="shiny" style="{display:none;}">
-      <span class="inner-shiny">niffler</span>
+    <span v-if="show" class="shiny" >
+      <span class="inner-shiny">niffler
+      </span>
     
   </span>
 </transition>
@@ -24,10 +25,21 @@
     and Electron <script>document.write(process.versions.electron)</script>. -->
 
     <div id="login">
-      <p>Who are you? a bitch ?</p>
+      
       <div v-if="loading">
         <div class="loader">Loading...</div>
-  </div>
+      </div>
+      <div v-else>
+        <p>{{message}}</p>
+        <ul >
+          <li v-for="username in usernames">
+            {{ username }}
+          </li>
+          <li>
+            + Add new user
+          </li>
+        </ul>
+      </div>
     <!-- <p>{{message}}</p> -->
     </div>
     <script src="js/index.js"></script>
