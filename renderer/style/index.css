@@ -2,17 +2,23 @@ body
 {
   background: #111;
   overflow:hidden;
+    -webkit-user-select: none;
+
 }
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
-  transition-duration: 2s;
+  transition-duration: .2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+#demo{
+	color:white;
+}
 #niffler-logo{
-	transition: padding-top 2s;
+	transition: padding-top .4s;
 	  padding-top:166px;
 	      -webkit-app-region: drag;
 	      -webkit-user-select: none;
@@ -165,6 +171,9 @@ list-style: none;
         font-size: x-large;
     font-weight: unset;
         text-align: center;
+            height: 253px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 #login li {
@@ -176,4 +185,26 @@ list-style: none;
 		cursor: pointer;
 		text-shadow: 0 0 3px #967300
 }
+#login input {    background: black;
+    padding: 10px;
+    color: #dca900;
+    font-size: initial;
+    border-style: solid;
+    border-width: thin;
+    border-color: #4a3900;
+    text-align: center;
+}
+#login input:focus{
+	outline-color: #dca900;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
 

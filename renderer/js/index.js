@@ -1,9 +1,14 @@
-var init = require('./js/init.js')
+var init = require('./js/init.js');
+var userModel = require('./model/user.js');
+const {ipcRenderer} = require('electron');
 
 var loginBox,nifflerLogo;
 
-function getUserNames() {
-	return ["abhinav","abhinav2","abhinav3"];
+function getUserNames(cb) {
+	userModel.find(function(err,data){
+		if(err) cb(err);
+		else cb(null,data);
+	});
 }
 
 function start(){
@@ -11,8 +16,33 @@ function start(){
 		el:"#login",
 		data: {
 			loading:true,
-			usernames:[],
-			message:""
+			users:[],
+			message:"",
+			usernamesLoaded:false,
+			noRegisteredUsers:false
+		},
+		methods:{
+			registerNewName: function(){
+				var newUsername = document.getElementById("new-username-input").value;
+				if(this.alreadyExists(newUsername)){
+					alert("Username already exists!");
+				} else {
+					
+					addNewUser(newUsername, function(){
+						loginBox.selectUser(newUsername);
+					});
+				}
+			},
+			alreadyExists:function(newUsername){
+				for(user in this.users){
+					if(this.users[user].name == newUsername) return true;
+				}
+				return false;
+			},
+			selectUser(username){
+				ipcRenderer.send('open-user', {username:username});
+			}
+
 		}
 	});
 	nifflerLogo  = new Vue({
@@ -24,24 +54,30 @@ function start(){
 
 	nifflerLogo.show=true;
 	// setTimeout(function(){nifflerLogo.show=true},3000);
-	setTimeout(initialize, 500);
+	setTimeout(initialize, 0);
+}
+
+function addNewUser(newUsername, cb){
+	userModel.create({name:newUsername}, cb);
 }
 
 function initialize() {
 	init.initialize(function(err) {
 		loginBox.loading = false;
 		if(err){
-			loginBox.message = "Something went wrong :(";
-			console.log("Error occurred while initialize - " + err);
+			die(err);
 		} else {
 			// slideLogoUp();
-			loginBox.message=greetingMessage();
-			document.getElementById("niffler-logo").style.paddingTop="50px"
-			loadUserNamesAndPopulateComponent();
+			document.getElementById("niffler-logo").style.paddingTop="50px";
+			setTimeout(loadUserNamesAndPopulateComponent,300);
 		}
 	});
 }
-
+function die(err){
+			loginBox.message = "Something went wrong :(";
+			console.log("Error occurred while initialize - " + err);
+			ipcRenderer.send('fatal-error', {message : "Unable to initialize - " + err});
+}
 function greetingMessage() {
 	var items=  ["Identify yourself!", "Who ARE you?", "Please select a username", "Papers Please >.>"];
 	return items[Math.floor(Math.random()*items.length)]
@@ -49,9 +85,20 @@ function greetingMessage() {
 
 function loadUserNamesAndPopulateComponent(){
 	// transition title to a bit above.
-	loginBox.usernames = getUserNames();
-	if(loginBox.usernames.length == 0 )
-		loginBox.message = "Add new user"
+	getUserNames(function(err,data){
+		if(err) die(err);
+		else {
+			loginBox.users = data;
+
+			if(loginBox.users.length == 0 ){
+				loginBox.noRegisteredUsers = true;
+			}
+			 else {
+				loginBox.message=greetingMessage();
+			}
+			loginBox.usernamesLoaded=true;
+		}
+	});
 }
 
 function startDelayed(){

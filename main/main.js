@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const VIEW_BASE_DIR = "./renderer/"
 
 require('electron-debug')();
@@ -10,7 +10,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({backgroundColor: '#111', 
+  mainWindow = new BrowserWindow({/*transparent: true, frame: false,*/backgroundColor: '#111', 
     titleBarStyle: 'hiddenInset', 
     width: 800, 
     height: 600, 
@@ -58,6 +58,22 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+ipcMain.on('fatal-error', (event, arg) => {
+  console.log(arg) // prints "ping"
+  console.log("Received fatal error")
+  dialog.showErrorBox("Fatal error", "Niffler has encountered a fatal error it cannot recover from - " + arg.message)
+  app.quit()
+  // event.sender.send('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('open-user', (event, arg) => {
+  console.log(arg) // prints "ping"
+  console.log("Received fatal error")
+  dialog.showErrorBox("Fatal error", "Niffler has encountered a fatal error it cannot recover from - " + JSON.stringify(arg))
+  app.quit()
+  // event.sender.send('asynchronous-reply', 'pong')
 })
 
 // In this file you can include the rest of your app's specific main process

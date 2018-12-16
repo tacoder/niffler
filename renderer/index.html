@@ -29,15 +29,22 @@
       <div v-if="loading">
         <div class="loader">Loading...</div>
       </div>
+
       <div v-else>
-        <p>{{message}}</p>
-        <ul >
-          <li v-for="username in usernames">
-            {{ username }}
+
+        <p v-if="noRegisteredUsers">Welcome to niffler!</p>
+        <p v-else>{{message}}</p>
+        <p v-if="noRegisteredUsers">Enter a username to continue 😁</p>
+
+        <ul id="username_list" v-if="usernamesLoaded">
+                                      <!-- <transition-group transition="stagger" name="fade-fast" stagger="100"> -->
+          <li v-for="user in users" transition="staggered"
+            stagger="100" v-on:click="selectUser(user.name)" >
+            {{ user.name }}
           </li>
-          <li>
-            + Add new user
-          </li>
+          <li ><input type="text" :placeholder="noRegisteredUsers ? 'username' : 'Someone new'" id="new-username-input" v-on:keyup.enter="registerNewName()" /></li>
+                <!-- </transition-group> -->
+
         </ul>
       </div>
     <!-- <p>{{message}}</p> -->
