@@ -6,11 +6,12 @@ require('electron-debug')();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let loginWindow, dashboardWindow
 
-function createWindow () {
+function createLoginWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({/*transparent: true, frame: false,*/backgroundColor: '#111', 
+  loginWindow = new BrowserWindow({
+    backgroundColor: '#111', 
     titleBarStyle: 'hiddenInset', 
     width: 800, 
     height: 600, 
@@ -22,26 +23,48 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile(VIEW_BASE_DIR + 'index.html')
-// mainWindow.once('ready-to-show', () => {
-//   mainWindow.show()
-// })
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  loginWindow.loadFile(VIEW_BASE_DIR + 'login.html')
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
+  loginWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null
+    loginWindow = null
   })
+}
+
+function createDashboardWindow(username){
+  // Create the browser window.
+  dashboardWindow = new BrowserWindow({
+    width: 800, 
+    height: 600, 
+    minWidth: 800, 
+    minHeight: 600, 
+    title:'Dashboard'
+  })
+
+  // and load the index.html of the app.
+  dashboardWindow.loadFile(VIEW_BASE_DIR + 'dashboard.html')
+
+  // Emitted when the window is closed.
+  dashboardWindow.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    dashboardWindow = null
+  })
+
+  ipcMain.on('fetch-username',function(event){
+    event.returnValue = username;
+  })
+
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', createLoginWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -55,8 +78,8 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
+  if (loginWindow === null) {
+    createLoginWindow()
   }
 })
 
@@ -69,11 +92,9 @@ ipcMain.on('fatal-error', (event, arg) => {
 })
 
 ipcMain.on('open-user', (event, arg) => {
-  console.log(arg) // prints "ping"
-  console.log("Received fatal error")
-  dialog.showErrorBox("Fatal error", "Niffler has encountered a fatal error it cannot recover from - " + JSON.stringify(arg))
-  app.quit()
-  // event.sender.send('asynchronous-reply', 'pong')
+  console.log("Opening user - " + JSON.stringify(arg)) // prints "ping"
+  loginWindow.destroy();
+  createDashboardWindow(arg.username);
 })
 
 // In this file you can include the rest of your app's specific main process
