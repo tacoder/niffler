@@ -14,6 +14,16 @@
             {{username}}
         </div>
     </div>
+
+    <div id="form">
+        <input v-on:change="storeSelectedFileName" type="file" name="browse" value="select file." />
+
+        <select v-model="type">
+            <option v-for="(fileType, index) in fileTypes" :value="index">{{ fileType }}</option>
+        </select>
+
+        <input type="button" value="Process this file!" v-on:click="processFile"/>
+    </div>
     <script src="js/dashboard.js"></script>
 </body>
 
