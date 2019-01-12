@@ -1,4 +1,5 @@
 var XLSX = require('xlsx');
+
 function fileToJson(filePath, cb){
 	var sheetData = {}
 	var sheet = XLSX.readFile(filePath).Sheets['OpTransactionHistory'];
@@ -28,6 +29,6 @@ function fileToJson(filePath, cb){
 	cb(sheetData)
 }
 
-module.exports=fileToJson
+module.exports={fileToJson:fileToJson}
 
 

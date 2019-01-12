@@ -24,6 +24,7 @@
     "electron-is-dev": "^1.0.1",
     "mongoose": "^5.3.13",
     "q": "^1.5.1",
+    "tabula-js": "git+https://github.com/tacoder/tabula-js.git",
     "xlsx": "^0.14.1"
   }
 }
