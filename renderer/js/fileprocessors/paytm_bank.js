@@ -19,7 +19,7 @@ function isFooter(line){
 	|| line.startsWith('Need Help? Call us at 0120 4456 456 or visit  http://www.paytmbank.com')
 	|| line.startsWith('"**** THIS IS COMPUTER GENERATED DOCUMENT WHICH REQUIRES NO SIGNATURE AND REPRESENTS YOUR RECORD ');
 }
-
+		
 function startsWithDate(line){
 	return line.match(date)
 }

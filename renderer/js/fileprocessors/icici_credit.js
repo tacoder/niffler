@@ -49,10 +49,17 @@ function fileToJson(filePath, cb) {
 	t.extractCsv((err, data) => {
 		if(err) cb(err); 
 		else {
+			// console.log(data);
 			cb(null, extractBillData(data))
 		}
 	});
 
 }
+
+// fileToJson("/Users/tacoder/Downloads/4315 XXXX XXXX 3008-86701.pdf",function (err,data){
+// 	console.log(err);
+// 	console.log(data);
+
+// })
 
 module.exports={fileToJson:fileToJson}

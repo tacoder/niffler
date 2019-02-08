@@ -53,10 +53,10 @@ function fileToJson(filePath, cb){
 	cb(null,sheetData)
 }
 
-fileToJson("/Users/tacoder/Downloads/CCard_Past_PdfStmt.jsp.xls",function(err,data) {
-	if(err) console.log(err);
-	console.log(JSON.stringify(data));
-});
+// fileToJson("/Users/tacoder/Downloads/CCard_Past_PdfStmt.jsp.xls",function(err,data) {
+// 	if(err) console.log(err);
+// 	console.log(JSON.stringify(data));
+// });
 module.exports={fileToJson:fileToJson}
 
 

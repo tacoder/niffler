@@ -1,5 +1,6 @@
 var init = require('./js/init.js');
 var userModel = require('./model/user.js');
+var fileProcessors = require('./js/fileprocessors');
 
 const {ipcRenderer} = require('electron');
 const remote = require('electron').remote;
@@ -8,7 +9,7 @@ const remote = require('electron').remote;
 var username;
 var topNav, fileform;
 
-const supportedFiles={0: "paytm", 1: "icico", 2: "mobikwik"};
+const supportedFiles=fileProcessors.supportedProcessors;//{0: "icici_credit", 1: "icici_credit_bulk", 2: "icici_debit", 3:"paytm_bank"};
 
 function start(){
 	username = ipcRenderer.sendSync('fetch-username');
@@ -30,7 +31,10 @@ function start(){
 				fileform.file = selectedFile.target.files[0];
 			},
 			processFile: function(){
-				require('./js/fileprocessors')(fileform.file.path,fileform.type);
+				fileProcessors.process(fileform.file.path,fileform.type, function (err,data){
+					if(err) alert("Error occurred while processing!" + err);
+					else alert("File was successfully processed man , data received from function was" + data);
+				});
 			}
 		}
 	})
