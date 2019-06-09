@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 hello.txt
 renderer/js/fileprocessors/pass.js
+statements

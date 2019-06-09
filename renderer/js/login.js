@@ -1,14 +1,29 @@
 var init = require('./js/init.js');
 var userModel = require('./model/user.js');
 const {ipcRenderer} = require('electron');
+const NodeCouchDb = require('node-couchdb');
+// node-couchdb instance with default options
+const couch = new NodeCouchDb();
 
 var loginBox,nifflerLogo;
 
 function getUserNames(cb) {
-	userModel.find(function(err,data){
-		if(err) cb(err);
-		else cb(null,data);
+	couch.mango("nf_users", {"selector":{}}).then(({data, headers, status}) => {
+	    // data is json response
+	    // headers is an object with all response headers
+	    // status is statusCode number
+	    console.log(JSON.stringify(data))
+	    cb(null, data.docs);
+	}, err => {
+		cb(err);
+	    // either request error occured
+	    // ...or err.code=EDOCMISSING if document is missing
+	    // ...or err.code=EUNKNOWN if statusCode is unexpected
 	});
+	// userModel.find(function(err,data){
+	// 	if(err) cb(err);
+	// 	else cb(null,data);
+	// });
 }
 
 function start(){
@@ -58,7 +73,17 @@ function start(){
 }
 
 function addNewUser(newUsername, cb){
-	userModel.create({name:newUsername}, cb);
+	couch.insert("nf_users", {name:newUsername}).then(({data, headers, status}) => {
+    // data is json response
+    // headers is an object with all response headers
+    // status is statusCode number
+    cb(null, data);
+}, err => {
+    // either request error occured
+    // ...or err.code=EDOCCONFLICT if document with the same id already exists
+    db(err);
+});
+	// userModel.create({name:newUsername}, cb);
 }
 
 function initialize() {

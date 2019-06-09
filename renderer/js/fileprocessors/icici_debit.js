@@ -26,9 +26,32 @@ function fileToJson(filePath, cb){
 		rowData['balance'] = sheet['I' + rowNum].v
 		sheetData.rawData.push(rowData)
 	}
-	cb(sheetData)
+	cb(null,sheetData)
 }
 
-module.exports={fileToJson:fileToJson}
+/*
+sample 
+{
+    "s_no": "1",
+    "value_date": "02/12/2018",
+    "transaction_date": "03/12/2018",
+    "cheque_number": "-",
+    "transaction_remarks": "ATM/CASH WDL/02-12-18/0                           ",
+    "withdrawal": 1500,
+    "deposit": 0,
+    "balance": 11192.25
+}
+*/
+function rawToBasicTransaction(rawData) {
+	basicTransaction = {}
+	basicTransaction.amount = rawData.withdrawal - rawData.deposit;
+	basicTransaction.date = new Date (rawData.value_date);
+	basicTransaction.biller_info = rawData.transaction_remarks;
+	return basicTransaction;
+}
+
+module.exports={fileToJson:fileToJson, rawToBasicTransaction:rawToBasicTransaction}
+
+
 
 

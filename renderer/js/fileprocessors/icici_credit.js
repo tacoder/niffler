@@ -2,6 +2,10 @@ const date = /\d{2}\/\d{2}\/\d{4}.*/g;
 const tabula = require('tabula-js');
 var password = require('./pass.js');
 
+/*
+	Creates a type
+*/
+
 function splitCsv(str) {
   return str.split(',').reduce((accum,curr)=>{
     if(accum.isConcatting) {
