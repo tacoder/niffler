@@ -6,5 +6,6 @@ module.exports = {
 			cb(err,data);
 		});	
 	} ,
-	supportedProcessors: processors
+	supportedProcessors: processors,
+	common : require('./common.js')
 }
