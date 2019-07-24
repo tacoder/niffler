@@ -1,5 +1,6 @@
 var XLSX = require('xlsx');
-
+var transactionUtils = require('../transaction');
+var m = require('moment')
 function fileToJson(filePath, cb){
 	var sheetData = {}
 	var sheet = XLSX.readFile(filePath).Sheets['OpTransactionHistory'];
@@ -42,15 +43,19 @@ sample
     "balance": 11192.25
 }
 */
-function rawToBasicTransaction(rawData) {
-	basicTransaction = {}
-	basicTransaction.amount = rawData.withdrawal - rawData.deposit;
-	basicTransaction.date = new Date (rawData.value_date);
-	basicTransaction.biller_info = rawData.transaction_remarks;
-	return basicTransaction;
+
+function valueDateToDate(valueDate) {
+	return m(valueDate,'DD/MM/YYYY').toDate()
 }
 
-module.exports={fileToJson:fileToJson, rawToBasicTransaction:rawToBasicTransaction}
+function rawToBasicTransactionFn(rawData) {
+	var datetime = valueDateToDate(rawData.value_date);
+	// TODO: Extract time from biller details.
+	var amount =  rawData.deposit - rawData.withdrawal;
+	return transactionUtils.transaction(rawData , datetime, amount, rawData.transaction_remarks);
+}
+
+module.exports={fileToJson:fileToJson, rawToBasicTransaction:rawToBasicTransactionFn}
 
 
 

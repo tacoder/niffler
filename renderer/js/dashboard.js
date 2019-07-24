@@ -11,13 +11,14 @@ const NodeCouchDb = require('node-couchdb');
 const couch = new NodeCouchDb();
 
 
-var username;
+var username, transactions;
 var topNav, fileform;
 
 const supportedFiles=fileProcessors.supportedProcessors;//{0: "icici_credit", 1: "icici_credit_bulk", 2: "icici_debit", 3:"paytm_bank"};
 
 function start(){
 	username = ipcRenderer.sendSync('fetch-username');
+	transactions = ipcRenderer.sendSync('fetch-transactions');
 	topNav = new Vue({
 		el:"#top-nav",
 		data:{
