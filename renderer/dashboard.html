@@ -24,6 +24,20 @@
 
         <input type="button" value="Process this file!" v-on:click="processFile"/>
     </div>
+    <div id="transactions">
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>RawBillerName</th>
+            </tr>
+            <tr v-for="transaction in transactions">
+                <td> {{ transaction.DateTime }} </td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.billerRawName }}</td>
+            </tr>
+        </table>
+    </div>
     <script src="js/dashboard.js"></script>
 </body>
 
