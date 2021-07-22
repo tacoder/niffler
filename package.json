@@ -27,6 +27,6 @@
     "node-couchdb": "^1.3.0",
     "q": "^1.5.1",
     "tabula-js": "git+https://github.com/tacoder/tabula-js.git",
-    "xlsx": "^0.14.1"
+    "xlsx": "^0.17.0"
   }
 }
