@@ -19,7 +19,7 @@
   "homepage": "https://github.com/tacoder/niffler#readme",
   "dependencies": {
     "Q": "^1.0.0",
-    "electron": "^2.0.8",
+    "electron": "^15.5.5",
     "electron-debug": "^2.0.0",
     "electron-is-dev": "^1.0.1",
     "moment": "^2.24.0",
